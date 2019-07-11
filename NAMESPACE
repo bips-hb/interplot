@@ -3,6 +3,7 @@
 S3method(interplot,default)
 S3method(interplot,glmerMod)
 S3method(interplot,glmmi)
+S3method(interplot,glmmkin)
 S3method(interplot,gmlmmi)
 S3method(interplot,lmerMod)
 S3method(interplot,lmmi)
