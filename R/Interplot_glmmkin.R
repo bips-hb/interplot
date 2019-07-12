@@ -394,10 +394,11 @@ interplot.glmmkin <- function(m, var1, var2, plot = TRUE, steps = NULL, ci = .95
     min_sim <- m.sims@coef[, match(var1, colnames(m$X))] + multiplier * xmin * m.sims@coef[, match(var12, colnames(m$X))] # simulation of the value at the minimum value of the conditioning variable
     max_sim <- m.sims@coef[, match(var1, colnames(m$X))] + multiplier * xmax * m.sims@coef[, match(var12, colnames(m$X))] # simulation of the value at the maximum value of the conditioning variable
     diff <- max_sim - min_sim # calculating the difference
-    ci_diff <- c(
-      quantile(diff, (1 - ci) / 2),
-      quantile(diff, 1 - (1 - ci) / 2)
-    ) # confidence intervals of the difference
+    # ci_diff <- c(
+    #   quantile(diff, (1 - ci) / 2),
+    #   quantile(diff, 1 - (1 - ci) / 2)
+    # ) # confidence intervals of the difference
+    ci_diff <- NULL
     
     
     if(adjCI == TRUE){
