@@ -21,7 +21,8 @@ URL: \url{http://jee3.web.rice.edu/interaction-overconfidence.pdf}.
   ci = 0.95, adjCI = FALSE, hist = FALSE, var2_dt = NA,
   predPro = FALSE, var2_vals = NULL, point = FALSE, sims = 5000,
   xmin = NA, xmax = NA, ercolor = NA, esize = 0.5, ralpha = 0.5,
-  rfill = "grey70", ...)
+  rfill = "grey70", pval = FALSE, pval_x = NULL, pval_y = NULL,
+  hist_yshift = 0, ...)
 }
 \arguments{
 \item{m}{A model object including an interaction term, or, alternately, a data frame recording conditional coefficients.}
@@ -61,6 +62,8 @@ URL: \url{http://jee3.web.rice.edu/interaction-overconfidence.pdf}.
 \item{ralpha}{A numerical value indicating the transparency of the ribbon.}
 
 \item{rfill}{A character value indicating the filling color of the ribbon.}
+
+\item{pval}{Add interaction p-value to plot.}
 
 \item{...}{Other ggplot aesthetics arguments for points in the dot-whisker plot or lines in the line-ribbon plots. Not currently used.}
 }

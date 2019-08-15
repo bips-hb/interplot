@@ -23,6 +23,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".", "X.weights."))
 #' @param esize A numerical value indicating the size of the whisker or ribbon.
 #' @param ralpha A numerical value indicating the transparency of the ribbon.
 #' @param rfill A character value indicating the filling color of the ribbon.
+#' @param pval Add interaction p-value to plot.
 #' @param ... Other ggplot aesthetics arguments for points in the dot-whisker plot or lines in the line-ribbon plots. Not currently used.
 #' 
 #' @details \code{interplot.glmmkin} is a S3 method from the \code{interplot}. It works on mixed-effects objects with class \code{glmmkin}.
@@ -58,7 +59,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c(".", "X.weights."))
 
 
 # S3 method for class 'glmmkin'
-interplot.glmmkin <- function(m, var1, var2, plot = TRUE, steps = NULL, ci = .95, adjCI = FALSE, hist = FALSE, var2_dt = NA, predPro = FALSE, var2_vals = NULL, point = FALSE, sims = 5000, xmin = NA, xmax = NA, ercolor = NA, esize = 0.5, ralpha = 0.5, rfill = "grey70", ...) {
+interplot.glmmkin <- function(m, var1, var2, plot = TRUE, steps = NULL, ci = .95, adjCI = FALSE, hist = FALSE, var2_dt = NA, predPro = FALSE, var2_vals = NULL, point = FALSE, sims = 5000, xmin = NA, xmax = NA, ercolor = NA, esize = 0.5, ralpha = 0.5, rfill = "grey70", pval = FALSE, pval_x = NULL, pval_y = NULL, ...) {
   set.seed(324)
   
   m.class <- class(m)
@@ -417,8 +418,24 @@ interplot.glmmkin <- function(m, var1, var2, plot = TRUE, steps = NULL, ci = .95
           var2_dt <- var2_dt
         }
       }
-      interplot.plot(m = coef, steps = steps, hist = hist, var2_dt = var2_dt,
-                     predPro = predPro, var2_vals = var2_vals, point = point, ercolor = ercolor, esize = esize, ralpha = ralpha, rfill = rfill, ci_diff = ci_diff, ...)
+      gp <- interplot.plot(m = coef, steps = steps, hist = hist, var2_dt = var2_dt,
+                     predPro = predPro, var2_vals = var2_vals, point = point, ercolor = ercolor, esize = esize, ralpha = ralpha, rfill = rfill, ci_diff = ci_diff, ...) 
+      
+      if (pval == TRUE) {
+        est <- m$coefficients
+        se <- sqrt(diag(m$cov))
+        p <- pchisq((est/se)^2, 1, lower.tail = FALSE)
+        pf <- p[colnames(m$X) == var12]
+        if (pf < 0.05) {
+          pf <- format(pf, digits = 2, scientific = TRUE)
+        } else {
+          pf <- format(round(pf, digits = 2), scientific = FALSE)
+        }
+        gp <- gp + 
+          annotate(geom = "text", x = pval_x, y = pval_y, label = paste0("p = ", pf)) 
+      }
+      
+      gp
     } else {
       if(predPro == TRUE){
         names(coef) <- c(var2, paste0("values_in_", var1), "coef", "ub", "lb")
