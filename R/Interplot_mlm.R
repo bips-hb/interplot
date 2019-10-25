@@ -46,7 +46,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(".", "X.weights."))
 
 # Coding function for non-mi mlm objects
 interplot.lmerMod <- function(m, var1, var2, plot = TRUE, steps = NULL, ci = .95, adjCI = FALSE,hist = FALSE, var2_dt = NA, predPro = FALSE, var2_vals = NULL, point = FALSE, sims = 5000,xmin = NA, xmax = NA, ercolor = NA, esize = 0.5, ralpha = 0.5, rfill = "grey70", ...) {
-    set.seed(324)
+    #set.seed(324)
     
     m.class <- class(m)
     
@@ -260,7 +260,7 @@ interplot.lmerMod <- function(m, var1, var2, plot = TRUE, steps = NULL, ci = .95
 
 #' @export
 interplot.glmerMod <- function(m, var1, var2, plot = TRUE, steps = NULL, ci = .95, adjCI = FALSE, hist = FALSE, var2_dt = NA, predPro = FALSE, var2_vals = NULL, point = FALSE, sims = 5000, xmin = NA, xmax = NA, ercolor = NA, esize = 0.5, ralpha = 0.5, rfill = "grey70", ...) {
-    set.seed(324)
+    #set.seed(324)
     
     m.class <- class(m)
     m.sims <- arm::sim(m, sims)
