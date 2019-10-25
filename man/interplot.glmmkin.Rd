@@ -22,7 +22,7 @@ URL: \url{http://jee3.web.rice.edu/interaction-overconfidence.pdf}.
   predPro = FALSE, var2_vals = NULL, point = FALSE, sims = 5000,
   xmin = NA, xmax = NA, ercolor = NA, esize = 0.5, ralpha = 0.5,
   rfill = "grey70", pval = FALSE, pval_x = NULL, pval_y = NULL,
-  hist_yshift = 0, ...)
+  ...)
 }
 \arguments{
 \item{m}{A model object including an interaction term, or, alternately, a data frame recording conditional coefficients.}
